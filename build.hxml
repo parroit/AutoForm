@@ -1,6 +1,10 @@
 -main Main
 -lib thx
 -D spod_macro
+-cp src\autoform\domrenderer
 -cp src
+-cp src\autoform
+
+
 -neko AutoForm.n
 
