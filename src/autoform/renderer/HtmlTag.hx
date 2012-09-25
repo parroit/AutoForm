@@ -1,4 +1,4 @@
-package autoform.domrenderer;
+package autoform.renderer;
 
 class HtmlTag extends Tag{
 	public function new(){}
@@ -13,6 +13,13 @@ class HtmlTag extends Tag{
 
 	public function head(attributes:Dynamic=null,children:Dynamic->Void=null){
 		return add(new HtmlTag().init("head",attributes,children));
+	}
+
+	public function span(attributes:Dynamic=null,children:Dynamic->Void=null){
+		return add(new HtmlTag().init("span",attributes,children));
+	}
+	public function fieldset(attributes:Dynamic=null,children:Dynamic->Void=null){
+		return add(new HtmlTag().init("fieldset",attributes,children));
 	}
 
 	public function h1(attributes:Dynamic=null,children:Dynamic->Void=null){

@@ -1,19 +1,16 @@
 package autoform;
-import autoform.domrenderer.FormRenderer;
+import autoform.FormRenderer;
 
 import thx.validation.IValidator;
 import thx.validation.StringLengthValidator;
 import thx.util.Result;
 import autoform.domrenderer.DomRenderingEngine;
-import autoform.domrenderer.HtmlDocument;
-import autoform.domrenderer.Tag;
-using autoform.domrenderer.HtmlDocument;
 
 
 class AutoForm {
 	public function new(){
 		data={
-			error:null,
+			error:Result.Ok,
 			fields:{}
 		};
 	}

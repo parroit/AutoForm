@@ -1,77 +1,50 @@
 import autoform.AutoForm;
 import autoform.domrenderer.DomRenderingEngine;
-import autoform.domrenderer.HtmlDocument;
-using autoform.domrenderer.HtmlDocument;
+import autoform.renderer.HtmlDocument;
+using autoform.renderer.HtmlDocument;
 using autoform.Reflection;
 import thx.validation.StringLengthValidator;
+import sys.db.Types.SString;
 
 class Main {
 	public static function main() {
+   
        Example.view(Example.controller());
-       
-   //     document.html({language:"it"},function (it:HtmlTag) { 
-			// it.head({classe:"bootstrap"},null);			
-   //     		it.body({classe:"bootstrap"},function (it:HtmlTag) { 
-   //     			it.h1({},null);		
-   //     		});			
-   //     	});
-       
+   
        
     }
 
 }
 
-class User  implements haxe.rtti.Infos {
-	
-	public function new(){}
-	@autoform({
+@:id(name)
+@:table("users")
+class User extends sys.db.Object , implements haxe.rtti.Infos {
+    public function new (){super();}
+
+    @autoform({
 		title: "User name",
 		description: "We promise not to send you spam!  We use your email only to help you restore your password."
 	})
-	public var name="type your <name>";
-	
-	@autoform({
-		widget:"passowrd",
+    public var name:SString<50>;
+    
+    @autoform({
+		widget:"password",
 		title: "Password",
 		description: "We promise not to send you spam!  We use your email only to help you restore your password."
 	})
-	public var password="type your password";
+	public var password:SString<50>;
+
 }
+
 
 class Example{
 	public static function controller():AutoForm{
-		var form=new AutoForm();
-		var nameAttr={
-					name:"name",
-					widget:"text",
-					caption:"User Name",
-					validation: [ new StringLengthValidator(0,10) ],
-					tooltip:"",
-				};
-		var passwordAttr={
-					name:"password",
-					widget:"password",
-					caption:"User Password",
-					validation: [ new StringLengthValidator(0,10) ],
-					tooltip:"",
-				};
 		
-		form.meta={
-			name:"user",
-			caption:"Edit user",
-			validation: [],
-			tooltip:"",
-			
-			fields : {
-				name:nameAttr,
-				password:passwordAttr
-			},
-					
-		};
-
 		var newUser=new User();
 		var clazz=Type.getClass(newUser);
 		
+		var form=new AutoForm();
+
 		form.of(clazz).fill(newUser);	
 
 		
@@ -82,8 +55,8 @@ class Example{
 	
 	public static function view(form:AutoForm){
 		var document=HtmlDocument.create();
-		new DomRenderingEngine(document.html()).with(form).render();
-		trace(document);
+		new DomRenderingEngine(document.html(),"").with(form).render();
+//		trace(document);
 	}
 
 

@@ -1,10 +1,10 @@
-package autoform.domrenderer;
+package autoform.renderer;
 
 class HtmlDocument{
 
 	public static function html(document:Xml,attributes:Dynamic=null,children:Dynamic->Void=null):HtmlTag{
 		var html =  new HtmlTag();
-		html.init("html",attributes,children);
+		html.init("div",attributes,children);
 		html.parentNode=document;
 		return html;
 	}

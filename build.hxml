@@ -1,10 +1,11 @@
 -main Main
 -lib thx
+-lib autoform
 -D spod_macro
 -cp src\autoform\domrenderer
 -cp src
 -cp src\autoform
 
 
--neko AutoForm.n
+-php C:\wamp\www\autoform
 

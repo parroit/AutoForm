@@ -1,4 +1,4 @@
-package autoform.domrenderer;
+package autoform.renderer;
 interface ITag{
 	public var parentNode(default,setParentNode):Xml;
 
