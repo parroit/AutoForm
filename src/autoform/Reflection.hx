@@ -3,6 +3,7 @@ import thx.util.Result;
 import thx.validation.StringLengthValidator;
 using Reflect;
 using Arrays;
+using StringTools;
 
 class Reflection 
 {
@@ -11,7 +12,7 @@ class Reflection
 		return {
 			String:{
 				widget:"text",
-				validation: [new StringLengthValidator(0,100) ],
+				validation: [],
 				name:String,
 				required:false,
 				description:"",
@@ -23,7 +24,7 @@ class Reflection
 			},
 			"sys.db.SString":{
 				widget:"text",
-				validation: [new StringLengthValidator(0,100) ],
+				validation: [],
 				name:String,
 				required:false,
 				description:"",
@@ -48,22 +49,26 @@ class Reflection
 		};
 	}
 
-	public static function of<T>(form:AutoForm,clazz:Class<T>,?fields:Array<String>=null) {
+	// @:macro public static function buildValidator(validator:String) : Expr {
+ //        return macro $validator;
+ //    }
+
+	public static function of(form:AutoForm,clazz:Dynamic,?fields:Array<String>=null) {
 		
 		var defaults =typeMetaDefaults();
 		
 
+		//var clazzName=Type.getClassName(clazz).replace(".","_");
 		
-		var rttiString  = untyped __php__("model_User::$__rtti");
-
+		var rttiString  = untyped clazz.__rtti;
 		
         var rtti = Xml.parse(rttiString);
-		//trace( rtti);
+		
 		var metaClazz = haxe.rtti.Meta.getFields(clazz);
 		
 		
 
-        var fieldsXml = rtti;//.elements();
+        var fieldsXml = rtti;
 		
         form.meta={
 			name:Type.getClassName(clazz),
@@ -74,29 +79,22 @@ class Reflection
 		
 		};
 		
-		//trace( fieldsXml);
+		
         for (field in rtti.firstElement().elements())
         {
-        	//var field=Reflect.field(fieldsXml,fieldN);
-    		//trace("<br/><br/><br/>"+"|"+Std.string(field)+"|<br/><br/><br/>");
+        	
     		var typeNode=field.firstElement();
         	
-			if ((fields==null || fields.exists(field.nodeName)) && typeNode!=null && Strings.trim(Std.string(typeNode)," \n\t")!="") {
+			if ((fields==null || Reflect.hasField(fields,field.nodeName)) && typeNode!=null && Strings.trim(Std.string(typeNode)," \n\t")!="") {
 				
 				
 				if (typeNode.nodeName=="c" || typeNode.nodeName=="t") {
 					var fieldTypeName= typeNode.get("path");
 					
 					var typeMetaDefault= Reflect.getProperty(defaults,fieldTypeName);
-					
-//					trace(fieldTypeName+" "+Std.string(typeMetaDefault));
-
 					var meta:autoform.FieldMetadata= Reflect.copy(typeMetaDefault);
 					
-					
 					meta.name=field.nodeName;
-
-
 
 					var fieldMeta = Reflect.field(metaClazz,meta.name);
 						
@@ -105,13 +103,10 @@ class Reflection
 			    		
 			    		if (Reflect.field(fieldMeta,"autoform") != null)
 			    		{
-							//trace(meta);
-
 			    			// Get the autoform object from meta
 			    			var autoform:Dynamic = cast fieldMeta.autoform[0];
 
 							meta.widget= autoform.field("widget");
-			    			
 
 			    			// Extract the human readable name
 			    			meta.title= autoform.field("title");
@@ -133,31 +128,19 @@ class Reflection
 			    			
 			    			// Extract the display options
 			    			meta.displayOptions = autoform.field("displayOptions");
-			    			//trace(meta);
+
+
+			    			// if (autoform.field("validation")!=null)
+			    			// 	meta.validation=[]	
+
 			    		} 
-			    			//trace("not found");
 			    	}
 
-
-
-
-
-
-					
-	        	
 					Reflect.setField(
 						form.meta.fields,
 						field.nodeName,
 						meta
-						);
-
-
-
-
-
-
-
-
+					);
 
 				}	
 			
@@ -169,12 +152,12 @@ class Reflection
 				
 	}
 
+	
+
 	public static function fill(form:AutoForm,model:Dynamic){
 		for(fld in Reflect.fields(form.meta.fields)){
 			if (fld!="manager"){
 				var fieldMeta:FieldMetadata=Reflect.getProperty(form.meta.fields,fld);
-				
-				
 
 				var fieldValue={
 					error:Result.Ok,
@@ -211,8 +194,6 @@ class Reflection
 					fieldMeta.name,
 					fieldValue.value
 					);
-
-
 					
 			}		
 			

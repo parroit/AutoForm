@@ -28,7 +28,7 @@ class BaseRenderingEngine{
 					rndr.addField(buildWidget(field.name));	
 				} else {
 					var buildWidget=register.get(field.widget);
-					trace("buildWidget is "+buildWidget);
+					trace("buildWidget is "+Std.string(buildWidget));
 					rndr.addField(buildWidget(field.name));	
 				}
 				

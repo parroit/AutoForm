@@ -16,12 +16,14 @@ class DomFormRenderer implements FormRenderer {
 	}
 	public function render(){
 		document.form({name:autoForm.meta.name,action:action,method:"POST"},function (it){
+			trace("1"+Std.string(it));
 			for (field in fields){
 				untyped{field.parent=it;}
 				field.render(Reflect.getProperty(autoForm.data.fields,field.fieldName));
 			}
-			it.input({type:"submit","class":"form-submit",value:"Save" });		
-
+			trace("2");
+			//it.input({type:"submit","class":"form-submit",value:"Save" });		
+			trace("3");
 			switch (autoForm.data.error) {
 				case Result.Ok:
 				case Result.Failure(error):	
@@ -30,6 +32,7 @@ class DomFormRenderer implements FormRenderer {
 						"class":"validation-error"
 					}).text(error) ;
 			}	
+			trace("4");
 			
 			
 		});

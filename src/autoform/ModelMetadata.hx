@@ -5,6 +5,6 @@ typedef ModelMetadata = {
 	caption:String,
 	validation:Array<IValidator<Dynamic>>,
 	tooltip:String,
-	fields:{}
+	fields:Dynamic
 
 }

@@ -14,12 +14,14 @@ class ConsoleFormRenderer implements FormRenderer
 		}
 	}
 	public var fields:Array<FieldRenderer>;
-	
+	public function addField(field:FieldRenderer){
+		fields.push(field);
+	}
 			
 }
 
 
-}
+
 
 
 

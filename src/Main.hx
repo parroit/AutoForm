@@ -1,5 +1,7 @@
 import autoform.AutoForm;
 import autoform.domrenderer.DomRenderingEngine;
+import autoform.consolerenderer.ConsoleRenderingEngine;
+import autoform.bootstraprenderer.BootstrapRenderingEngine;
 import autoform.renderer.HtmlDocument;
 using autoform.renderer.HtmlDocument;
 using autoform.Reflection;
@@ -56,7 +58,8 @@ class Example{
 	public static function view(form:AutoForm){
 		var document=HtmlDocument.create();
 		new DomRenderingEngine(document.html(),"").with(form).render();
-//		trace(document);
+
+		trace(document);
 	}
 
 

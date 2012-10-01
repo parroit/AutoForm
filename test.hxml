@@ -1,0 +1,9 @@
+-main test.TestValidation
+-lib thx
+-lib autoform
+-lib utest
+-D spod_macro
+-cp src
+
+-neko C:\src\autoform\out\autoform_test.n
+

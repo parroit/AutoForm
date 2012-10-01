@@ -6,6 +6,6 @@ class ConsoleTextFieldRenderer implements FieldRenderer
 		this.fieldName=fieldName;	
 	}
 	public function render(data:FieldData){
-		Sys.println(data.meta.caption+": "+data.value);
+		Sys.println(data.meta.display+": "+data.value);
 	}
-	
+}	

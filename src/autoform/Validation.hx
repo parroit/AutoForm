@@ -2,7 +2,7 @@ package autoform;
 import thx.validation.IValidator;
 import thx.util.Result;
 import autoform.FieldMetadata;
-
+import sys.io.File;
 
 class Validation{
 	public static function addFormRule(form:AutoForm,rule:IValidator<Dynamic>){
@@ -15,9 +15,14 @@ class Validation{
 
 
 	public static function validate(form:AutoForm){
+
+
+
 		
 		var errors=false; 
 		for(fieldN in Reflect.fields(form.data.fields)){
+
+
 			var field=Reflect.field(form.data.fields,fieldN);
 			for (rule in cast(field.meta.validation,Array<Dynamic>)){
 				
@@ -35,7 +40,7 @@ class Validation{
 		}
 
 		for (rule in cast(form.meta.validation,Array<Dynamic>)){
-			
+
 			form.data.error=rule.validate(form.data.fields);
 			//Sys.println(form.data.error);
 			switch (form.data.error) {

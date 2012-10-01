@@ -6,6 +6,6 @@ class ConsolePasswordFieldRenderer implements FieldRenderer
 		this.fieldName=fieldName;	
 	}
 	public function render(value:FieldData){
-		Sys.println(value.meta.caption+": *********");
+		Sys.println(value.meta.display+": *********");
 	}
 }
