@@ -1,14 +1,14 @@
 package introspector;
 
-class FieldIntrospector<ObjectType,FieldType> = {
+class FieldIntrospector<ObjectType,FieldType>  {
 	public var name(default,null) : String;
 	public var type(default,null) : Class<ObjectType>;
 	public var isPublic(default,null) : Bool;
 	public var meta(default,null) : Dynamic;
 	public var doc(default,null) : Null<String>;
 
-	public dynamic set(instance:Clazz,value:FieldType){}
-	public dynamic get(instance:Clazz):FieldType{return null;}
+	public dynamic function set(instance:ObjectType,value:FieldType){}
+	public dynamic function get(instance:ObjectType):FieldType{return null;}
 
 
 	public function new(name,type,isPublic,meta,doc,set,get){

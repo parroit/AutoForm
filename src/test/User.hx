@@ -1,5 +1,6 @@
 package test;
-
+import introspector.ClassIntrospector;
+import introspector.FieldIntrospector;
 import sys.db.Types;
 import test.Builder;
 
