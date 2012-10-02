@@ -17,7 +17,7 @@ class User extends sys.db.Object, implements Persistent,implements haxe.rtti.Inf
 		"title" : "User name", 
 		"description" : "Your account login."}
 	)
-	public var username:SString<100>;
+	public var username:String;
 
 	@autoform({
 		"widget" : "password", 
@@ -25,13 +25,13 @@ class User extends sys.db.Object, implements Persistent,implements haxe.rtti.Inf
 		"description" : "Your account password.",
 		"validation": "new StringLengthValidator(1, 100)"
 	})
-	public var password:SString<100>;
+	public var password:String;
 
 	@autoform({
 		"title" : "E-mail", 
 		"description" : "Your account primary email."
 	})
-	public var email:SString<100>;
+	public var email:String;
 	
 
 	@autoform({
@@ -39,10 +39,10 @@ class User extends sys.db.Object, implements Persistent,implements haxe.rtti.Inf
 		"title" : "Remember", 
 		"description" : "Remember login status."
 	})	
-	public var remember:SBool;
+	public var remember:Bool;
 	
 
 
-	public var confirmationId:SString<100>;
+	public var confirmationId:String;
 	
 }
